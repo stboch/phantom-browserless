@@ -7,7 +7,6 @@
     "logo": "browserlessio.svg",
     "logo_dark": "browserlessio_dark.svg",
     "product_name": "chrome",
-    "python_version": "3",
     "product_version_regex": ".*",
     "publisher": "Stboch",
     "license": "Copyright (c) Stboch, 2020",
@@ -16,7 +15,7 @@
     "package_name": "phantom_browserlessio",
     "main_module": "browserlessio_connector.pyc",
     "min_phantom_version": "4.8.23319",
-    "app_wizard_version": "1.0.0",
+    "app_wizard_version": "1.1.0",
     "configuration": {
         "URL": {
             "description": "URL for browserless.io (if using hosted service) https://chrome.browserless.io",
@@ -91,6 +90,15 @@
                     "contains": [],
                     "default": false,
                     "order": 3
+                },
+                "followRefresh": {
+                    "description": "Wait for URL redirects",
+                    "data_type": "boolean",
+                    "required": true,
+                    "primary": false,
+                    "contains": [],
+                    "default": true,
+                    "order": 4
                 }
             },
             "output": [
@@ -167,6 +175,15 @@
                     "value_list": [],
                     "default": "",
                     "order": 0
+                },
+                "followRefresh": {
+                    "description": "Wait for URL redirects",
+                    "data_type": "boolean",
+                    "required": true,
+                    "primary": false,
+                    "contains": [],
+                    "default": true,
+                    "order": 1
                 }
             },
             "output": [
@@ -254,6 +271,15 @@
                     "contains": [],
                     "default": true,
                     "order": 3
+                },
+                "followRefresh": {
+                    "description": "Wait for URL redirects",
+                    "data_type": "boolean",
+                    "required": true,
+                    "primary": false,
+                    "contains": [],
+                    "default": true,
+                    "order": 4
                 }
             },
             "output": [
@@ -307,7 +333,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "browserlessio_view.display_screenshot",
+                "title": "Screen Shot"
             },
             "versions": "EQ(*)"
         }

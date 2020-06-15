@@ -139,7 +139,7 @@ class BrowserlessIoConnector(BaseConnector):
                 url,
                 params=params,
                 verify=config.get('verify_server_cert', False),
-                headers={'Content-Type': 'application/json' },
+                headers={'Content-Type': 'application/json'},
                 **kwargs
             )
         except Exception as e:
@@ -189,11 +189,14 @@ class BrowserlessIoConnector(BaseConnector):
         headerfooter = param['headerfooter']
         printbackground = param['printbackground']
         landscape = param['landscape']
+        followRefresh = param['followRefresh']
         query = {"url": "{}".format(s_url), "options": {
             "displayHeaderFooter": "{}".format(headerfooter),
             "printBackground": "{}".format(printbackground),
             "landscape": "{}".format(landscape)
         }}
+        if followRefresh:
+            query["gotoOptions"] = {"waitUntil": "networkidle2"}
 
         # make rest call
         ret_val, response = self._make_rest_call(
@@ -219,9 +222,9 @@ class BrowserlessIoConnector(BaseConnector):
             if vault_ret.get('succeeded'):
                 action_result.set_status(phantom.APP_SUCCESS, 'Downloaded PDF')
                 summary = {phantom.APP_JSON_VAULT_ID: vault_ret[phantom.APP_JSON_HASH],
-                   phantom.APP_JSON_NAME: file_name,
-                   'vault_file_path': Vault.get_file_path(vault_ret[phantom.APP_JSON_HASH]),
-                   phantom.APP_JSON_SIZE: vault_ret.get(phantom.APP_JSON_SIZE)}
+                        phantom.APP_JSON_NAME: file_name,
+                        'vault_file_path': Vault.get_file_path(vault_ret[phantom.APP_JSON_HASH]),
+                        phantom.APP_JSON_SIZE: vault_ret.get(phantom.APP_JSON_SIZE)}
                 action_result.update_summary(summary)
             return action_result.get_status()
 
@@ -235,8 +238,11 @@ class BrowserlessIoConnector(BaseConnector):
 
         # Required values can be accessed directly
         s_url = param['url']
+        followRefresh = param['followRefresh']
 
         query = {"url": "{}".format(s_url)}
+        if followRefresh:
+            query["gotoOptions"] = {"waitUntil": "networkidle2"}
         # make rest call
         ret_val, response = self._make_rest_call(
             '/content', action_result, data=json.dumps(query))
@@ -261,9 +267,9 @@ class BrowserlessIoConnector(BaseConnector):
             if vault_ret.get('succeeded'):
                 action_result.set_status(phantom.APP_SUCCESS, 'Downloaded HTML Contents')
                 summary = {phantom.APP_JSON_VAULT_ID: vault_ret[phantom.APP_JSON_HASH],
-                   phantom.APP_JSON_NAME: file_name,
-                   'vault_file_path': Vault.get_file_path(vault_ret[phantom.APP_JSON_HASH]),
-                   phantom.APP_JSON_SIZE: vault_ret.get(phantom.APP_JSON_SIZE)}
+                        phantom.APP_JSON_NAME: file_name,
+                        'vault_file_path': Vault.get_file_path(vault_ret[phantom.APP_JSON_HASH]),
+                        phantom.APP_JSON_SIZE: vault_ret.get(phantom.APP_JSON_SIZE)}
                 action_result.update_summary(summary)
             return action_result.get_status()
 
@@ -280,6 +286,7 @@ class BrowserlessIoConnector(BaseConnector):
         ftype = param['type']
         quality = param['quality']
         fullpage = param['fullpage']
+        followRefresh = param['followRefresh']
 
         jpeg_query = {"url": "{}".format(s_url), "options": {
             "type": "{}".format(ftype),
@@ -295,7 +302,8 @@ class BrowserlessIoConnector(BaseConnector):
             query = png_query
         else:
             query = jpeg_query
-
+        if followRefresh:
+            query["gotoOptions"] = {"waitUntil": "networkidle2"}
         # make rest call
         ret_val, response = self._make_rest_call(
             '/screenshot', action_result, data=json.dumps(query))
@@ -320,9 +328,9 @@ class BrowserlessIoConnector(BaseConnector):
             if vault_ret.get('succeeded'):
                 action_result.set_status(phantom.APP_SUCCESS, 'Downloaded Screenshot')
                 summary = {phantom.APP_JSON_VAULT_ID: vault_ret[phantom.APP_JSON_HASH],
-                   phantom.APP_JSON_NAME: file_name,
-                   'vault_file_path': Vault.get_file_path(vault_ret[phantom.APP_JSON_HASH]),
-                   phantom.APP_JSON_SIZE: vault_ret.get(phantom.APP_JSON_SIZE)}
+                        phantom.APP_JSON_NAME: file_name,
+                        'vault_file_path': Vault.get_file_path(vault_ret[phantom.APP_JSON_HASH]),
+                        phantom.APP_JSON_SIZE: vault_ret.get(phantom.APP_JSON_SIZE)}
                 action_result.update_summary(summary)
             return action_result.get_status()
 

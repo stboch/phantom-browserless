@@ -16,8 +16,8 @@ If docker is already installed  `docker run -p 3000:3000 browserless/chrome`
 # Install phbrowserless on phantom
 1. Download and extract phbrowserless to you phantom server
 1. cd to this new directory
-1. `phenv python3 /opt/phantom/bin/py3/compile_app.pyc -i`
-> If python2 is needed `phenv python2.7 /opt/phantom/bin/compile_app.pyc -i`
+1. `phenv python2.7 /opt/phantom/bin/compile_app.pyc -i`
+    > currently only Python2 is supported by Phantom UI - App already Python3 compliant `phenv python3 /opt/phantom/bin/py3/compile_app.pyc -i`
 1. Procced to Phantom UI for configuration
 
 # Configure phbrowserless
