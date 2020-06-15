@@ -27,6 +27,6 @@ If docker is already installed  `docker run -p 3000:3000 browserless/chrome`
 1. Provide an asset name
 1. Click asset settings
 1. Provide the url for your docker host `http://(hostname/ip):3000` if you are using browserless.io use http://chrome.browserless.io and don't forget to provide the Token. 
-> Token's can be used for self hosted instances as well, follow the instructions provided by browserless.io for how.
+    > Token's can be used for self hosted instances as well, follow the instructions provided by browserless.io for how.
 1. Click Save 
 1. Click Test Connectivity. 
